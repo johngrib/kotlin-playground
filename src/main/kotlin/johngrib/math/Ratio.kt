@@ -2,49 +2,69 @@ package johngrib.math
 
 import kotlin.math.abs
 
-class Ratio
-private constructor(
-    private val _numerator: Int,
-    private val _denominator: Int,
-) {
+class Ratio {
     /**
      * 약분된 분자.
      */
-    private var numerator: Int
+    private val numerator: Int
 
     /**
      * 약분된 분모.
      */
-    private var denominator: Int
+    private val denominator: Int
 
-    init {
-        if (_denominator == 0) {
+    /**
+     * 부호가 + 이면 1, - 이면 -1.
+     */
+    private val sign: Int
+
+    private constructor(
+        numerator: Int,
+        denominator: Int,
+    ) {
+        if (denominator == 0) {
             throw IllegalArgumentException("Denominator cannot be 0.")
         }
-        val gcdValue = gcd(_numerator, _denominator)
-        numerator = _numerator / gcdValue
-        denominator = _denominator / gcdValue
+        this.sign = when {
+            numerator == 0 -> 1
+            numerator > 0 && denominator > 0 -> 1
+            numerator < 0 && denominator < 0 -> 1
+            else -> -1
+        }
+        val gcdValue = gcd(numerator, denominator)
+        this.numerator = abs(numerator) / gcdValue
+        this.denominator = abs(denominator) / gcdValue
     }
 
     override fun toString(): String {
         if (numerator == 0) {
             return "0"
         }
+        val prefixSign = if (sign < 0) "-" else ""
         if (denominator == 1) {
-            return "$numerator"
+            return "${prefixSign}$numerator"
         }
-        if ((numerator < 0 && denominator < 0) || (numerator > 0 && denominator > 0)) {
-            return "$numerator/$denominator"
-        }
-        if ((numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0)) {
-            return "-${abs(numerator)}/${abs(denominator)}"
-        }
-        return "$numerator/$denominator"
+        return "$prefixSign$numerator/$denominator"
+    }
+
+    /**
+     * + 연산자 구현.
+     * 주어진 분수와 덧셈 연산한 결과를 리턴합니다.
+     */
+    operator fun plus(other: Ratio): Ratio {
+        return Ratio(
+            numerator = sign * (numerator * other.denominator) + other.sign * (other.numerator * denominator),
+            denominator = denominator * other.denominator
+        )
     }
 
     companion object {
         fun of(numerator: Int, denominator: Int): Ratio {
             return Ratio(numerator, denominator)
+        }
+
+        fun of(numerator: Int): Ratio {
+            return Ratio(numerator, 1)
         }
 
         /**

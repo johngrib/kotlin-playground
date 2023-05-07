@@ -58,6 +58,33 @@ class RatioTest : DescribeSpec({
 
         }
     }
+    describe("plus") {
+        context("더했을 때 자연수가 되는 두 분수가 주어지면") {
+            val givenCases = listOf(
+                Triple(Ratio.of(3, 4), Ratio.of(1, 4), "1"),
+                Triple(Ratio.of(3, 4), Ratio.of(-3, 4), "0"),
+                Triple(Ratio.of(0), Ratio.of(3), "3"),
+                Triple(Ratio.of(2, 5), Ratio.of(6, 10), "1"),
+            )
+            it("덧셈 결과로 자연수를 리턴한다") {
+                givenCases.forEach { (ratio1, ratio2, expectString) ->
+                    (ratio1 + ratio2).toString() shouldBe expectString
+                }
+            }
+        }
+        context("두 분수가 주어지면") {
+            val givenCases = listOf(
+                Triple(Ratio.of(3, 4), Ratio.of(2, 7), "29/28"),
+                Triple(Ratio.of(2, 6), Ratio.of(5, 2), "17/6"),
+            )
+            it("덧셈 결과를 리턴한다") {
+                givenCases.forEach { (ratio1, ratio2, expectString) ->
+                    (ratio1 + ratio2).toString() shouldBe expectString
+                }
+            }
+
+        }
+    }
     describe("gcd") {
         val gcdParcialFirst = { number1: Int -> { number2: Int -> Ratio.gcd(number1, number2) } }
         val gcdParcialLast = { number1: Int -> { number2: Int -> Ratio.gcd(number2, number1) } }
