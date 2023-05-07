@@ -49,6 +49,14 @@ class RatioTest : DescribeSpec({
                 }
             }
         }
+
+        context("분자 또는 분모 둘 중 하나가 음수이면") {
+
+        }
+
+        context("분자, 분모 둘 다 음수이면") {
+
+        }
     }
     describe("gcd") {
         val gcdParcialFirst = { number1: Int -> { number2: Int -> Ratio.gcd(number1, number2) } }
