@@ -47,9 +47,24 @@ class Ratio {
         return "$prefixSign$numerator/$denominator"
     }
 
+    /**
+     * + 연산자 구현.
+     * 주어진 분수와 덧셈 연산한 결과를 리턴합니다.
+     */
+    operator fun plus(other: Ratio): Ratio {
+        return Ratio(
+            numerator = sign * (numerator * other.denominator) + other.sign * (other.numerator * denominator),
+            denominator = denominator * other.denominator
+        )
+    }
+
     companion object {
         fun of(numerator: Int, denominator: Int): Ratio {
             return Ratio(numerator, denominator)
+        }
+
+        fun of(numerator: Int): Ratio {
+            return Ratio(numerator, 1)
         }
 
         /**
