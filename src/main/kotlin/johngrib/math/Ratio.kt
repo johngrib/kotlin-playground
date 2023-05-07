@@ -7,15 +7,21 @@ private constructor(
     private val _numerator: Int,
     private val _denominator: Int,
 ) {
-    private var gcdValue: Int
+    /**
+     * 약분된 분자.
+     */
     private var numerator: Int
+
+    /**
+     * 약분된 분모.
+     */
     private var denominator: Int
 
     init {
         if (_denominator == 0) {
             throw IllegalArgumentException("Denominator cannot be 0.")
         }
-        gcdValue = gcd(_numerator, _denominator)
+        val gcdValue = gcd(_numerator, _denominator)
         numerator = _numerator / gcdValue
         denominator = _denominator / gcdValue
     }
