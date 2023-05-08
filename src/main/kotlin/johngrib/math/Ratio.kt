@@ -69,6 +69,14 @@ class Ratio {
         )
     }
 
+    /**
+     * - 연산자 구현.
+     * 주어진 분수를 뺄셈 연산한 결과를 리턴합니다.
+     */
+    operator fun minus(other: Ratio): Ratio {
+        return this + (other * MINUS_ONE)
+    }
+
     companion object {
         fun of(numerator: Int, denominator: Int): Ratio {
             return Ratio(numerator, denominator)
@@ -77,6 +85,10 @@ class Ratio {
         fun of(numerator: Int): Ratio {
             return Ratio(numerator, 1)
         }
+
+        val ZERO: Ratio = of(numerator = 0)
+        val ONE: Ratio = of(numerator = 1)
+        val MINUS_ONE: Ratio = of(numerator = -1)
 
         /**
          * 두 수의 '최대공약수'를 리턴합니다.
