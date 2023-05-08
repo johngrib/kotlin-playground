@@ -95,6 +95,14 @@ class Ratio {
         return Ratio(sign * denominator, numerator)
     }
 
+    /**
+     * 비교 연산자 구현을 위한 3-way comparator.
+     */
+    operator fun compareTo(other: Ratio): Int {
+        val difference = this.minus(other)
+        return if (difference.numerator == 0) 0 else difference.sign
+    }
+
     companion object {
         fun of(numerator: Int, denominator: Int): Ratio {
             return Ratio(numerator, denominator)
