@@ -77,6 +77,16 @@ class Ratio {
         return this + (other * MINUS_ONE)
     }
 
+    /**
+     * 분수의 역수를 생성해 리턴합니다.
+     */
+    fun reciprocal(): Ratio {
+        if (numerator == 0) {
+            throw IllegalArgumentException("Impossible: reciprocal of 0")
+        }
+        return Ratio(sign * denominator, numerator)
+    }
+
     companion object {
         fun of(numerator: Int, denominator: Int): Ratio {
             return Ratio(numerator, denominator)
