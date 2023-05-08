@@ -78,6 +78,14 @@ class Ratio {
     }
 
     /**
+     * / 연산자 구현.
+     * 주어진 분수를 나눗셈 연산한 결과를 리턴합니다.
+     */
+    operator fun div(other: Ratio): Ratio {
+        return this * other.reciprocal()
+    }
+
+    /**
      * 분수의 역수를 생성해 리턴합니다.
      */
     fun reciprocal(): Ratio {
